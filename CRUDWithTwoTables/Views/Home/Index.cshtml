@@ -1,0 +1,40 @@
+﻿@model PagedList.IPagedList<CRUDWithTwoTables.Models.MultipleClass>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table border="1" class="table table-bordered">
+    <tr>
+        <th>UserId</th>
+        <th>FullName</th>
+        <th>UserEmail</th>
+        <th>CivilIdNumber</th>
+        <th>CarLicense</th>
+    </tr>
+    @foreach (var v in Model)
+    {
+        <tr>
+            <td>@v.UserId</td>
+            <td>@v.FullName</td>
+            <td>@v.UserEmail</td>
+            <td>@v.CivilIdNumber</td>
+            <td>@v.CarLicense</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = v.UserId }) |
+                @Html.ActionLink("Details", "Details", new { id = v.UserId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = v.UserId })
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize}))
+        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount from Database
+
