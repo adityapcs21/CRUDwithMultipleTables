@@ -19,7 +19,7 @@ namespace CRUDWithTwoTables.Controllers
         public ActionResult Index(int Page = 1,int PageSize=10)
         {
 
-            List<UserDetail> USER = db.UserDetails.ToList();
+            List<UserDetail> USER = db.UserDetails.Where(y=>y.IsActive==true).ToList();
             List<CarDetail> Car = db.CarDetails.ToList();
             List<MultipleClass> result = new List<MultipleClass>();
 
@@ -108,7 +108,9 @@ namespace CRUDWithTwoTables.Controllers
             };
 
             var car = new CarDetail()
+
             {
+                UserId = viewModel.UserId,
                 CarLicense = viewModel.CarLicense
 
             };
@@ -122,44 +124,106 @@ namespace CRUDWithTwoTables.Controllers
 
         public ActionResult Edit(int? id)
         {
-
             var viewModel = (from a in db.UserDetails
-                             join c in db.CarDetails on a.UserId equals c.Id
                              where a.UserId == id
-                             select new Models.MultipleClass
+                             select new Models.EditView
                              {
                                  UserId = a.UserId,
                                  FullName = a.FullName,
                                  UserEmail = a.UserEmail,
+                                 PasswordHash = a.PasswordHash,
                                  CivilIdNumber = a.CivilIdNumber,
-                                 CarLicense = c.CarLicense
+                                 DOB = a.DOB,
+                                 MobileNo = a.MobileNo,
+                                 Address = a.Address,
+                                 RoleId = a.RoleId,
+                                 ProfilePic = a.ProfilePic,
+                                 CreatedDate = a.CreatedDate,
+                                 ModifiedDate = a.ModifiedDate,
+                                 IsNotificationActive = a.IsNotificationActive,
+                                 IsActive = a.IsActive,
+                                 DeviceId = a.DeviceId,
+                                 DeviceType = a.DeviceType,
+                                 FcmToken = a.FcmToken,
+                                 verify = a.verify,
+                                 VerifiedBy = a.VerifiedBy,
+                                 Area = a.Area,
+                                 Block = a.Block,
+                                 Street = a.Street,
+                                 Housing = a.Housing,
+                                 Floor = a.Floor,
+                                 NewPass = a.NewPass,
+                                 ConPass = a.ConPass,
+                                 Jadda = a.Jadda,
+                                 Reason = a.Reason,
+                                 ActivatedBy = a.ActivatedBy,
+                                 ActivatedDate = a.ActivatedDate
                              }).FirstOrDefault();
+
+            var cars = db.CarDetails.Where(x => x.UserId == id).Select(y => y.CarLicense).ToList();
+
+            viewModel.CarLicense.AddRange(cars);
             return View(viewModel);
 
         }
-
-
         [HttpPost]
-        public ActionResult Edit(MultipleClass insert)
+        public ActionResult Edit(EditView insert)
         {
-            var newuserdetail = db.UserDetails.Where(x => x.UserId == insert.UserId).FirstOrDefault();
-            var newcardetail = db.CarDetails.Where(x => x.UserId == insert.UserId).FirstOrDefault();
+
+            var viewModel = db.UserDetails.Where(x => x.UserId == insert.UserId).FirstOrDefault();
+            var viewModel1 = db.CarDetails.Where(x => x.UserId == insert.UserId).FirstOrDefault();
+
+            viewModel.FullName = insert.FullName;
+            viewModel.UserEmail = insert.UserEmail;
+            viewModel.PasswordHash = insert.PasswordHash;
+            viewModel.CivilIdNumber = insert.CivilIdNumber;
+            viewModel.DOB = insert.DOB;
+            viewModel.MobileNo = insert.MobileNo;
+            viewModel.Address = insert.Address;
+            viewModel.RoleId = insert.RoleId;
+            viewModel.ProfilePic = insert.ProfilePic;
+            viewModel.CreatedDate = insert.CreatedDate;
+            viewModel.ModifiedDate = insert.ModifiedDate;
+            viewModel.IsNotificationActive = insert.IsNotificationActive;
+            viewModel.IsActive = insert.IsActive;
+            viewModel.DeviceId = insert.DeviceId;
+            viewModel.DeviceType = insert.DeviceType;
+            viewModel.FcmToken = insert.FcmToken;
+            viewModel.verify = insert.verify;
+            viewModel.VerifiedBy = insert.VerifiedBy;
+            viewModel.Area = insert.Area;
+            viewModel.Block = insert.Block;
+            viewModel.Street = insert.Street;
+            viewModel.Housing = insert.Housing;
+            viewModel.Floor = insert.Floor;
+            viewModel.NewPass = insert.NewPass;
+            viewModel.ConPass = insert.ConPass;
+            viewModel.Jadda = insert.Jadda;
+            viewModel.Reason = insert.Reason;
+            viewModel.ActivatedBy = insert.ActivatedBy;
+            viewModel.ActivatedDate = insert.ActivatedDate;
+
+            db.Entry(viewModel).State = EntityState.Modified;
+            db.Entry(viewModel1).State = EntityState.Modified;
 
 
-            newuserdetail.UserId = insert.UserId;
-            newuserdetail.FullName = insert.FullName;
-            newuserdetail.UserEmail = insert.UserEmail;
-            newuserdetail.CivilIdNumber = insert.CivilIdNumber;
-            newcardetail.CarLicense = insert.CarLicense;
-
-            db.Entry(newuserdetail).State = EntityState.Modified;
-            db.Entry(newcardetail).State = EntityState.Modified;
             db.SaveChanges();
             return View();
+
         }
 
+        public ActionResult Delete(int id)
+        {
+            var viewModel = db.UserDetails.Where(x => x.UserId == id).FirstOrDefault();
+            var viewModel1 = db.CarDetails.Where(x => x.UserId == id).ToList();
+            viewModel.IsActive = false;
+            db.Entry(viewModel).State = EntityState.Modified;
+            if (viewModel1.Count() > 0)
+                db.Entry(viewModel1).State = EntityState.Modified;
 
-
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
     }
 }

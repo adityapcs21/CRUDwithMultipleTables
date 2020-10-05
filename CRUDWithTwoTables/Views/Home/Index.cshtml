@@ -1,40 +1,56 @@
 ﻿@model PagedList.IPagedList<CRUDWithTwoTables.Models.MultipleClass>
 @using PagedList.Mvc;
-@{
-    ViewBag.Title = "Index";
-}
+@{ ViewBag.Title = "Index"; }
 
-<h2>Index</h2>
+@using (Html.BeginForm("AddupdateUserDetails", "Index", FormMethod.Post))
+{
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table border="1" class="table table-bordered">
-    <tr>
-        <th>UserId</th>
-        <th>FullName</th>
-        <th>UserEmail</th>
-        <th>CivilIdNumber</th>
-        <th>CarLicense</th>
-    </tr>
-    @foreach (var v in Model)
-    {
-        <tr>
-            <td>@v.UserId</td>
+   <div class="container">
+    <div class="background-image">
+        <div class="col-sm-12 clearfix">
+            <table border="1" class="table table-striped">
+                <thead>
+                    <tr style="color:white; background-color:green">
+                        <th>UserId</th>
+                        <th>FullName</th>
+                        <th>UserEmail</th>
+                        <th>CivilIdNumber</th>
+                        <th>CarLicense</th>
+                        <th>Options</th>
+                        <th align="right" width="80">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody id="managedUserDetails">
+                    @foreach (var v in Model)
+                    {
+        <tr style="color:darkblue">
+            <td>@v.UserId</td>  
             <td>@v.FullName</td>
             <td>@v.UserEmail</td>
             <td>@v.CivilIdNumber</td>
-            <td>@v.CarLicense</td>
+            <td>string.Join(",",@v.CarLicense)</td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = v.UserId }) |
-                @Html.ActionLink("Details", "Details", new { id = v.UserId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = v.UserId })
+                @*<div class="glyphicon-pencil">
+            @Html.ActionLink("Edit", "Edit", new { id = v.UserId }) |
+        </div>
+        <div class="glyphicon glyphicon-trash">
+            @Html.ActionLink("Delete", "Delete", new { id = v.UserId })
+        </div>*@
+                <a href="javascript:;" data-toggle="modal" data-target="#editUser" value="Add User" class="edit-cancel text-uppercase" onclick="EditAirport('@v.UserId,@v.FullName,@v.UserEmail,@v.CivilIdNumber,@v.CarLicense');">Edit</a>
+                @Html.ActionLink(" ", "DisableSelectedUser", new { @v.UserId }, new { @class = "fa fa-close cancel no-margin", @onclick = "return confirm('Are you sure you wish to delete this record?');" })
             </td>
         </tr>
-    }
-</table>
+                    }
+                </tbody>
 
-<br />
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize}))
-        Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount from Database
-
+            </table>
+        </div>
+            <br />
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+            Showing @Model.FirstItemOnPage to @Model.LastItemOnPage of @Model.TotalItemCount from Database
+        </div>
+    </div>
+}

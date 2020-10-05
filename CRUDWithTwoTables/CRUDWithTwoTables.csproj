@@ -146,6 +146,7 @@
       <DependentUpon>EmployeeDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CreateTable.cs" />
+    <Compile Include="Models\EditView.cs" />
     <Compile Include="Models\EmployeeDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

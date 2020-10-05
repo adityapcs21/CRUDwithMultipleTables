@@ -1,22 +1,85 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-    color:rebeccapurple;
+    padding-top: 70px;
+    padding-bottom: 30px;
+    color: rebeccapurple;
 }
 
+p a {
+    color: red;
+    align-content: center;
+}
+
+.form-control text-box single-line {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+}
+
+td {
+    background-color: #1abc9c;
+    box-shadow: 30px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: large;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+table {
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 6px 12px #888888;
+    opacity: 0.97;
+    background: transparent;
+    border-radius: 8px;
 }
 
+table {
+    overflow: hidden;
+}
+
+tr:hover {
+    background-color: #ffa;
+}
+
+td, th {
+    position: relative;
+}
+
+    td:hover::after,
+    th:hover::after {
+        content: "";
+        position: absolute;
+        background-color: #ffa;
+        left: 0;
+        top: -5000px;
+        height: 10000px;
+        width: 100%;
+        z-index: -1;
+    }
+/* Set width on the form input elements since they're 100% wide by default */
+
+
+.table table-bordered tr {
+    background-color: blue;
+    color: white;
+}
 
 .form-style-5 {
     max-width: 500px;
@@ -28,6 +91,8 @@ textarea {
     border-radius: 8px;
     font-family: Georgia, "Times New Roman", Times, serif;
 }
+
+
 
     .form-style-5 fieldset {
         border: none;
@@ -42,48 +107,61 @@ textarea {
         display: block;
         margin-bottom: 8px;
     }
+input[type=text],
+input[type="datetime"],
+input[type="checkbox"],
+input[type="number"] {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+}
 
-    .form-style-5 input[type="text"],
-    .form-style-5 input[type="date"],
-    .form-style-5 input[type="datetime"],
-    .form-style-5 input[type="email"],
-    .form-style-5 input[type="number"],
-    .form-style-5 input[type="search"],
-    .form-style-5 input[type="time"],
-    .form-style-5 input[type="url"],
-    .form-style-5 textarea,
-    .form-style-5 select {
-        font-family: Georgia, "Times New Roman", Times, serif;
-        background: rgba(255,255,255,.1);
-        border: none;
-        border-radius: 4px;
-        font-size: 15px;
-        margin: 0;
-        outline: 0;
-        padding: 10px;
-        width: 100%;
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        background-color: #e8eeef;
-        color: #8a97a0;
-        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-        box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-        margin-bottom: 30px;
+/*form input {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+}*/
+
+    .form-style-5 input[type="text"]:focus,
+    .form-style-5 input[type="date"]:focus,
+    .form-style-5 input[type="datetime"]:focus,
+    .form-style-5 input[type="email"]:focus,
+    .form-style-5 input[type="number"]:focus,
+    .form-style-5 input[type="search"]:focus,
+    .form-style-5 input[type="time"]:focus,
+    .form-style-5 input[type="url"]:focus,
+    .form-style-5 textarea:focus,
+    .form-style-5 select:focus {
+        background: #d2d9dd;
     }
-
-        .form-style-5 input[type="text"]:focus,
-        .form-style-5 input[type="date"]:focus,
-        .form-style-5 input[type="datetime"]:focus,
-        .form-style-5 input[type="email"]:focus,
-        .form-style-5 input[type="number"]:focus,
-        .form-style-5 input[type="search"]:focus,
-        .form-style-5 input[type="time"]:focus,
-        .form-style-5 input[type="url"]:focus,
-        .form-style-5 textarea:focus,
-        .form-style-5 select:focus {
-            background: #d2d9dd;
-        }
 
     .form-style-5 select {
         -webkit-appearance: menulist-button;
@@ -125,4 +203,3 @@ textarea {
         .form-style-5 input[type="button"]:hover {
             background: #109177;
         }
-

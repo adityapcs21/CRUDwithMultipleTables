@@ -5,8 +5,14 @@ using System.Web;
 
 namespace CRUDWithTwoTables.Models
 {
-    public class CreateTable
+    public class EditView
     {
+        public EditView()
+        {
+            CarLicense = new List<string>();
+        }
+       
+        
         public int UserId { get; set; }
         public string FullName { get; set; }
         public string UserEmail { get; set; }
@@ -39,8 +45,7 @@ namespace CRUDWithTwoTables.Models
         public string ActivatedBy { get; set; }
         public Nullable<System.DateTime> VerifiedDate { get; set; }
         public Nullable<System.DateTime> ActivatedDate { get; set; }
-        public string CarLicense { get; set; }
-
-       
+        
+        public List<string> CarLicense { get; set; }
     }
 }
